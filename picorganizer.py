@@ -18,6 +18,7 @@ def main():
     failed = []
 
     for root, _, files in os.walk(args.src_dir):
+        files.sort()
         for file_name in files:
             abs_file_name = os.path.join(root, file_name)
             print 'Processing file', abs_file_name
