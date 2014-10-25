@@ -28,14 +28,14 @@ class FileCopier(object):
         self._copy_file(in_path, out_path)
 
     def _get_directory_name(self, date, subject):
-        month_dir = '%(y)s-%(m)s' % {'y': date.year, 'm': date.month}
-        subject_dir = ('%(y)s_%(m)s_%(d)s-%(subj)s' %
+        month_dir = '%(y)04d-%(m)02d' % {'y': date.year, 'm': date.month}
+        subject_dir = ('%(y)04d_%(m)02d_%(d)02d-%(subj)s' %
                        {'y': date.year, 'm': date.month, 'd': date.day,
                         'subj': subject})
         return os.path.join(self._dest_dir, month_dir, subject_dir)
 
     def _get_file_name(self, in_path, date):
-        file_basename = ('%(y)s_%(m)s_%(d)s-%(hr)s_%(min)s_%(sec)s' %
+        file_basename = ('%(y)04d_%(m)02d_%(d)02d-%(hr)s_%(min)s_%(sec)s' %
                          {'y': date.year, 'm': date.month, 'd': date.day,
                           'hr': date.hour, 'min': date.minute,
                           'sec': date.second})
