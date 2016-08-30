@@ -21,12 +21,16 @@ class DateExtractor(object):
         else:
             try:
                 creation_date = self._get_date_hachoir(input_file)
-            except Exception:
+            except:
                 try:
                     creation_date = self._get_date_exif(input_file)
-                except Exception:
-                    print 'Failed to get date information for file', input_file
-                    return None
+                except:
+                    if re.match(r'IMG-\d{8}-WA\d{4}', base):
+                        creation_date = (base[4:8] + ':' + base[8:10] + ':' +
+                                         base[10:12] + ':0:0:0')
+        if creation_date is None:
+            print 'Failed to get date information for file', input_file
+            return None
         date = creation_date.replace(' ', ':').replace('-', ':').split(':')
         return datetime.datetime(*[int(i) for i in date])
 
@@ -52,5 +56,4 @@ class DateExtractor(object):
     def _get_date_exif(self, input_file):
         with open(input_file, 'rb') as file_p:
             tags = exifread.process_file(file_p)
-        if tags:
-            return str(tags['EXIF DateTimeOriginal'])
+        return str(tags['EXIF DateTimeOriginal'])

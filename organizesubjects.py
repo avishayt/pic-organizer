@@ -38,7 +38,7 @@ class SubjectOrganizer(object):
 
     def _get_subject_from_user(self, input_file):
         with open(os.devnull, 'w') as dev_null:
-            subprocess.call(['gwenview', input_file],
+            subprocess.call(['eog', input_file],
                             stdout=dev_null, stderr=dev_null)
         subject = None
         while not subject:

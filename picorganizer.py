@@ -30,7 +30,8 @@ def main():
 
             subject = organizer.get_subject(abs_file_name, file_date)
             print 'Subject:', subject
-            copier.copy_file(abs_file_name, file_date, subject)
+            if subject != 'skip':
+                copier.copy_file(abs_file_name, file_date, subject)
 
 def parse_args():
     parser = argparse.ArgumentParser()
